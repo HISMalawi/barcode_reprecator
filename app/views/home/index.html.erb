@@ -1,0 +1,26 @@
+<div id="wrap">
+  <h1 id="title">Barcode Reprecator</h1>
+  <% flash.each do |type, msg| %>
+    <div>
+      <%= msg %>
+    </div>
+  <% end %>
+  <%= form_with url: '/print', id: "barcode-form", method: :post do |form| %>
+    <div class="form-class">
+      <%= image_tag ("barcode1.png"), class:"barcode"%>
+      <%= form.text_field :accession_number, class: "text" %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  const input = document.querySelector('input');
+  addEventListener('input', (event) => {
+    value = event.target.value
+    if (value.includes('$')){
+      form = document.querySelector('#barcode-form');
+      form.action = '/print';
+      form.submit();
+    }  
+  });
+</script>

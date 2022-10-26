@@ -15,9 +15,7 @@ class HomeController < ApplicationController
     unless accession_number.nil?
       specimen_label = BarcodeGeneratorService.generate_specimen_label(accession_number)
       filename = accession_number.to_s + rand(1000).to_s << '.lbl'
-      if specimen_label.nil?
-        flash[:alert] = "Order for accession number: #{accession_number} not found"
-      else
+      if !specimen_label.nil?
         flash[:notice] = "#{accession_number} printed successfully"
         send_data(
           specimen_label,

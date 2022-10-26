@@ -30,7 +30,7 @@ class Auto12Epl
   HEIGHT_ELEMENT = 0.1
   HEIGHT_ELEMENT_SPACE = 0.01
   HEIGHT_PID = 0.1
-  HEIGHT_BARCODE = 0.394
+  HEIGHT_BARCODE = 0.294
   HEIGHT_BARCODE_HUMAN = 0.083
 
   # element widths
@@ -39,7 +39,7 @@ class Auto12Epl
   WIDTH_BARCODE_HUMAN = 1.688
 
   # margins
-  L_MARGIN = 0.031
+  L_MARGIN = 0.021
   L_MARGIN_BARCODE = 0.25
 
   # stat locations
@@ -59,7 +59,7 @@ class Auto12Epl
   ASCII_VERT_MULT = 1
 
 
-  def initialize(element_font = 2, barcode_human_font = 2)
+  def initialize(element_font = 1, barcode_human_font = 1)
     @element_font = element_font
     @barcode_human_font = barcode_human_font
   end
@@ -123,13 +123,13 @@ class Auto12Epl
     tests_element_text = tests
 
     # generate EPL statements
-    name_element = generate_ascii_element(to_dots(l_margin), to_dots(HEIGHT_MARGIN), 0, @element_font, false, name_text)
-    pid_dob_age_gender_element = generate_ascii_element(to_dots(l_margin), to_dots(HEIGHT_MARGIN + HEIGHT_ELEMENT + HEIGHT_ELEMENT_SPACE), 0, @element_font, false, pid_dob_age_gender_text)
+    name_element = generate_ascii_element(to_dots(l_margin_barcode), to_dots(HEIGHT_MARGIN), 0, @element_font, false, name_text)
+    pid_dob_age_gender_element = generate_ascii_element(to_dots(l_margin_barcode), to_dots(HEIGHT_MARGIN + HEIGHT_ELEMENT + HEIGHT_ELEMENT_SPACE), 0, @element_font, false, pid_dob_age_gender_text)
     barcode_human_element = generate_ascii_element(to_dots(l_margin_barcode), to_dots(HEIGHT_MARGIN + HEIGHT_ELEMENT + HEIGHT_ELEMENT_SPACE + HEIGHT_ELEMENT + HEIGHT_ELEMENT_SPACE + HEIGHT_BARCODE), 0, @barcode_human_font, false, barcode_human_text)
-    collector_element = generate_ascii_element(to_dots(l_margin), to_dots(HEIGHT_MARGIN + HEIGHT_ELEMENT + HEIGHT_ELEMENT_SPACE + HEIGHT_ELEMENT + HEIGHT_ELEMENT_SPACE + HEIGHT_BARCODE + HEIGHT_BARCODE_HUMAN + HEIGHT_ELEMENT_SPACE), 0, @element_font, false, collector_element_text)
-    tests_element = generate_ascii_element(to_dots(l_margin), to_dots(HEIGHT_MARGIN + HEIGHT_ELEMENT + HEIGHT_ELEMENT_SPACE + HEIGHT_ELEMENT + HEIGHT_ELEMENT_SPACE + HEIGHT_BARCODE + HEIGHT_BARCODE_HUMAN + HEIGHT_ELEMENT_SPACE + HEIGHT_ELEMENT + HEIGHT_ELEMENT_SPACE), 0, @element_font, false, tests_element_text)
+    collector_element = generate_ascii_element(to_dots(l_margin_barcode), to_dots(HEIGHT_MARGIN + HEIGHT_ELEMENT + HEIGHT_ELEMENT_SPACE + HEIGHT_ELEMENT + HEIGHT_ELEMENT_SPACE + HEIGHT_BARCODE + HEIGHT_BARCODE_HUMAN + HEIGHT_ELEMENT_SPACE), 0, @element_font, false, collector_element_text)
+    tests_element = generate_ascii_element(to_dots(l_margin_barcode), to_dots(HEIGHT_MARGIN + HEIGHT_ELEMENT + HEIGHT_ELEMENT_SPACE + HEIGHT_ELEMENT + HEIGHT_ELEMENT_SPACE + HEIGHT_BARCODE + HEIGHT_BARCODE_HUMAN + HEIGHT_ELEMENT_SPACE + HEIGHT_ELEMENT + HEIGHT_ELEMENT_SPACE), 0, @element_font, false, tests_element_text)
     barcode_element = generate_barcode_element(to_dots(l_margin_barcode), to_dots(HEIGHT_MARGIN + HEIGHT_ELEMENT + HEIGHT_ELEMENT_SPACE + HEIGHT_ELEMENT + HEIGHT_ELEMENT_SPACE), to_dots(HEIGHT_BARCODE)-4, schema_track)
-    stat_element = generate_ascii_element(to_dots(L_MARGIN)+FONT_Y_DOTS.at(@element_font - 1)+FONT_PAD_DOTS, to_dots(HEIGHT_MARGIN), 1, @element_font, true, stat_element_text)
+    stat_element = generate_ascii_element(to_dots(l_margin_barcode)+FONT_Y_DOTS.at(@element_font - 1)+FONT_PAD_DOTS, to_dots(HEIGHT_MARGIN), 1, @element_font, true, stat_element_text)
 
     # combine EPL statements
     if stat == nil
@@ -154,7 +154,7 @@ class Auto12Epl
   # Add spaces between the NPID and the dob/age/gender so that line is fully justified
   def full_justify(pid, dag, font, length)
     max_char = max_characters(font, length)
-    spaces_needed = max_char - pid.length - dag.length
+    spaces_needed = max_char - pid.length - (dag.length() + 5)
     space = ''
     spaces_needed.times do
       space = space + ' '

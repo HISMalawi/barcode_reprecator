@@ -1,9 +1,9 @@
 <div id="wrap">
   <h1 id="title">Barcode Reprecator</h1>
   <% flash.each do |type, msg| %>
-    <div class="<%= type%> flash">
+    <p class="<%= type%> flash">
       <%= msg %>
-    </div>
+    </p>
   <% end %>
   <%= form_with url: '/print', id: "barcode-form", method: :post do |form| %>
     <div class="form-class">

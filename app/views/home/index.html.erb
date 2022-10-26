@@ -1,7 +1,7 @@
 <div id="wrap">
   <h1 id="title">Barcode Reprecator</h1>
   <% flash.each do |type, msg| %>
-    <div>
+    <div class="<%= type%> flash">
       <%= msg %>
     </div>
   <% end %>

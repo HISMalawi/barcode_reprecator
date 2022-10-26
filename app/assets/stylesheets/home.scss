@@ -15,17 +15,26 @@ input[type=text] {
   border-radius: 4px;
   font-size: 5.2em;
 }
-
 .barcode{
   height: 160px;
   width: 140px;
   margin-right: 3px;
   border-radius: 5px;
 }
-
 .form-class{
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+.flash{
+  margin-left: 6.6em;
+  width: 70%;
+  padding: 4px; 
+}
+.alert{
+  background-color: red;
+}
+.notice{
+  background-color: green;
 }
